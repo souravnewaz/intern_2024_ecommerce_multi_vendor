@@ -18,9 +18,9 @@
             <div class="col-md-3 mb-2">
                 <div class="card">
                     <img class="card-img-top" src="{{ asset($seller->image) }}" alt="image" />
-                    <div class="card-body p-2">
+                    <!-- <div class="card-body p-2">
                         <p class="mb-0">{{ $seller->name }}</p>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             @endforeach

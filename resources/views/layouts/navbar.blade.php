@@ -25,6 +25,12 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
+            @guest
+            <div class="d-flex">
+                <a href="/login" class="btn btn-light border mx-2">Login</a>
+                <a href="/register" class="btn btn-primary">Register</a>
+            </div>
+            @endguest
         </div>
     </div>
 </nav>

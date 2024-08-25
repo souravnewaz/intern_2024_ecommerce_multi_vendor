@@ -10,6 +10,8 @@
     </div>
 </header>
 
+@include('components.alerts')
+
 <section class="pb-5">
     <div class="container px-4 px-lg-5 mt-5">
         <h5>Top Sellers</h5>

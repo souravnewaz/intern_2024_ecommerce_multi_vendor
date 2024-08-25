@@ -19,11 +19,11 @@
                 </li>
             </ul>
             <form class="d-flex">
-                <button class="btn btn-outline-dark" type="submit">
+                <a class="btn btn-outline-dark" href="{{ route('cart.index') }}">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                </button>
+                </a>
             </form>
             @guest
             <div class="d-flex">
@@ -31,6 +31,11 @@
                 <a href="/register" class="btn btn-primary">Register</a>
             </div>
             @endguest
+
+            @if(auth()->check())
+            <span class="mx-2">{{ auth()->user()->name }}</span>
+            @endif
+
         </div>
     </div>
 </nav>

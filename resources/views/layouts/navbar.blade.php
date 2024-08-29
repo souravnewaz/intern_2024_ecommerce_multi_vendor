@@ -34,6 +34,7 @@
 
             @if(auth()->check())
             <span class="mx-2">{{ auth()->user()->name }}</span>
+            <a href="{{ route('orders.index') }}">Orders</a>
             @endif
 
         </div>

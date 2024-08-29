@@ -6,6 +6,7 @@
                 <h5 class="fw-bolder">
                     <a href="{{ route('products.show', $product->id) }}">{{ $product->name }}</a>
                 </h5>
+                <span class="badge bg-primary">{{ $product->seller->name }}</span> <br>
                 ${{ $product->sale_price }}
             </div>
         </div>

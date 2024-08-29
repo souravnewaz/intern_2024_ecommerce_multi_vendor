@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger(User::class);
-            $table->unsignedBigInteger(Seller::class);
+            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Seller::class);
             $table->integer('subtotal');
             $table->integer('paid_amount');
             $table->integer('due_amount');

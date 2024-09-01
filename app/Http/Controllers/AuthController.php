@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Seller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,47 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
+        return redirect()->route('home')->with('success', 'Registration successful');
+    }
+
+    public function sellerRegistrationForm()
+    {
+        return view('auth.seller-register');
+    }
+
+    public function sellerRegistration(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'shop_name' => 'required|string',
+            'address' => 'required|string',
+            'password' => 'required|confirmed',
+            'image' => 'nullable|image|mimes:jpg,png',
+        ]);
+
+        $userData['name'] = $request->name;
+        $userData['email'] = $request->email;
+        $userData['password'] = Hash::make($request->password);
+        $userData['role'] = User::SELLER;
+
+        $user = User::create($userData);
+
+        $sellerData['user_id'] = $user->id;
+        $sellerData['name'] = $request->shop_name;
+        $sellerData['phone'] = $request->phone;
+        $sellerData['address'] = $request->address;
+
+        $imageName = time().'.'.$request->image->getClientOriginalExtension();
+        $request->image->move(public_path('/images/sellers'), $imageName);
+        $sellerData['image'] = 'images/sellers/'. $imageName;
+
+        $seller = Seller::create($sellerData);
+
+        $user->seller_id = $seller->id;
+        $user->save();
 
         return redirect()->route('home')->with('success', 'Registration successful');
     }

@@ -29,6 +29,7 @@
             <div class="d-flex">
                 <a href="/login" class="btn btn-light border mx-2">Login</a>
                 <a href="/register" class="btn btn-primary">Register</a>
+                <a href="{{ route('sellerRegistration') }}" class="btn btn-primary ms-1">Join as Seller</a>
             </div>
             @endguest
 

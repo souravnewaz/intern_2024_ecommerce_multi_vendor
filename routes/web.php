@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Seller\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -28,4 +29,8 @@ Route::middleware('auth')->group(function(){
     Route::post('cart/{cart}/delete', [CartController::class, 'delete'])->name('cart.delete');
     Route::post('{cart}/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+});
+
+Route::prefix('seller')->as('seller.')->middleware('seller')->group(function(){
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });

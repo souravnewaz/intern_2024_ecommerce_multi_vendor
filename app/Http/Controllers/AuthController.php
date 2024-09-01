@@ -24,19 +24,25 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if(!$user) {
+        if (!$user) {
             return redirect()->back()->with('error', 'Incorrect email!');
         }
 
-        if($user->role != User::CUSTOMER) {
-            return redirect()->back()->with('error', 'Login as customer!');
-        }
+        // if($user->role != User::CUSTOMER) {
+        //     return redirect()->back()->with('error', 'Login as customer!');
+        // }
 
         if (Auth::attempt($credentials)) {
 
             $request->session()->regenerate();
 
-            return redirect('/');
+            if ($user->role != User::CUSTOMER) {
+                return redirect('/');
+            }
+
+            if ($user->role != User::SELLER) {
+                return redirect()->route('seller.dashboard');
+            }
         }
 
         return redirect()->back()->with('error', 'Incorrect password!');
@@ -71,7 +77,7 @@ class AuthController extends Controller
     {
         return view('auth.seller-register');
     }
-
+    
     public function sellerRegistration(Request $request)
     {
         $request->validate([
@@ -96,9 +102,9 @@ class AuthController extends Controller
         $sellerData['phone'] = $request->phone;
         $sellerData['address'] = $request->address;
 
-        $imageName = time().'.'.$request->image->getClientOriginalExtension();
+        $imageName = time() . '.' . $request->image->getClientOriginalExtension();
         $request->image->move(public_path('/images/sellers'), $imageName);
-        $sellerData['image'] = 'images/sellers/'. $imageName;
+        $sellerData['image'] = 'images/sellers/' . $imageName;
 
         $seller = Seller::create($sellerData);
 

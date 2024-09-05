@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Seller\DashboardController;
+use App\Http\Controllers\Seller\ProductController as SellerProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -29,8 +30,19 @@ Route::middleware('auth')->group(function(){
     Route::post('cart/{cart}/delete', [CartController::class, 'delete'])->name('cart.delete');
     Route::post('{cart}/checkout', [CartController::class, 'checkout'])->name('checkout');
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::prefix('seller')->as('seller.')->middleware('seller')->group(function(){
+    
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('products')->as('products.')->group(function(){
+        Route::get('/', [SellerProductController::class, 'index'])->name('index');
+        Route::get('/create', [SellerProductController::class, 'create'])->name('create');
+        Route::post('/store', [SellerProductController::class, 'store'])->name('store');
+        Route::get('/{product}/edit', [SellerProductController::class, 'edit'])->name('edit');
+        Route::post('/{product}/update', [SellerProductController::class, 'update'])->name('update');
+    });
 });

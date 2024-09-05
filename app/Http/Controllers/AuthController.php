@@ -36,11 +36,11 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            if ($user->role != User::CUSTOMER) {
+            if ($user->role == User::CUSTOMER) {
                 return redirect('/');
             }
 
-            if ($user->role != User::SELLER) {
+            if ($user->role == User::SELLER) {
                 return redirect()->route('seller.dashboard');
             }
         }
@@ -112,5 +112,12 @@ class AuthController extends Controller
         $user->save();
 
         return redirect()->route('home')->with('success', 'Registration successful');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('/');
     }
 }

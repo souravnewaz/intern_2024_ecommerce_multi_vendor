@@ -27,7 +27,7 @@
                 </a>
                 <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="login.html">All Orders</a>
+                        <a class="nav-link" href="{{ route('seller.sales.index') }}">All Orders</a>
                         <a class="nav-link" href="login.html">Pending</a>
                         <a class="nav-link" href="login.html">Cancelled</a>
                         <a class="nav-link" href="register.html">Delivered</a>

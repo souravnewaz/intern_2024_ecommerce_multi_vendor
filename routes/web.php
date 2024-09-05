@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Seller\DashboardController;
 use App\Http\Controllers\Seller\ProductController as SellerProductController;
+use App\Http\Controllers\Seller\SaleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -44,5 +45,10 @@ Route::prefix('seller')->as('seller.')->middleware('seller')->group(function(){
         Route::post('/store', [SellerProductController::class, 'store'])->name('store');
         Route::get('/{product}/edit', [SellerProductController::class, 'edit'])->name('edit');
         Route::post('/{product}/update', [SellerProductController::class, 'update'])->name('update');
+    });
+
+    Route::prefix('sales')->as('sales.')->group(function(){
+        Route::get('/', [SaleController::class, 'index'])->name('index');
+        Route::post('/{sale}/update-status', [SaleController::class, 'updateStatus'])->name('updateStatus');
     });
 });

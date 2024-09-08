@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest('id')->get();
+        $products = Product::latest('id')->limit(100)->get();
         //$products = Product::where('seller_id', auth()->user()->seller_id)->latest('id')->get();
 
         return view('seller.products.index', compact('products'));

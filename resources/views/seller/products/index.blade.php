@@ -7,7 +7,7 @@
             <h5 class="card-title mb-0">Products</h5>
         </div>
         <div class="card-body">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="productTable">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -46,4 +46,14 @@
     </div>
 </div>
 
+@push('scripts')
+<script>
+    window.addEventListener('DOMContentLoaded', event => {
+        const dataTable = document.getElementById('productTable');
+        if (dataTable) {
+            new simpleDatatables.DataTable(dataTable);
+        }
+    });
+</script>
+@endpush
 @endsection

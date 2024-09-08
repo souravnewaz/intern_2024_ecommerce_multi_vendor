@@ -1,3 +1,11 @@
+<?php
+$cart_count = 0;
+$cart_ids = \App\Models\Cart::where('user_id', auth()->id())->pluck('id')->toArray();
+if(!empty($cart_ids)) {
+    $cart_count = \App\Models\CartItem::whereIn('cart_id', $cart_ids)->count();
+}
+?>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="/">{{ env('APP_NAME') }}</a>
@@ -22,7 +30,7 @@
                 <a class="btn btn-outline-dark" href="{{ route('cart.index') }}">
                     <i class="bi-cart-fill me-1"></i>
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">{{ $cart_count }}</span>
                 </a>
             </form>
             @guest

@@ -44,6 +44,7 @@ if(!empty($cart_ids)) {
             @if(auth()->check())
             <span class="mx-2">{{ auth()->user()->name }}</span>
             <a href="{{ route('orders.index') }}">Orders</a>
+            <a href="{{ route('logout') }}" class="mx-2">Logout</a>
             @endif
 
         </div>

@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                     <label>Stock</label>
-                    <input type="text" class="form-control" name="stock"  value="{{ $product->stock_in }}">
+                    <input type="text" class="form-control" name="stock_in"  value="{{ $product->stock_in }}">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label>Regular Price</label>

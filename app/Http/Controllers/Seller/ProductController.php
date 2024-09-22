@@ -35,17 +35,30 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
+            'stock_in' => 'required|numeric',
+            'regular_price' => 'required|string',
+            'sale_price' => 'required|string',
+            'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:png,jpg,jpeg',
         ]);
 
         $data['image'] = $product->image;
 
-        if($request->hasFile('image')) {
-            //$data['image'] = //upload image here;
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->upload_file($request->file('image'));
         }
 
         $product->update($data);
 
         return redirect()->back()->with('success', 'Product updated successfully');
+    }
+
+    private function upload_file($file)
+    {
+        $folderName = 'images';
+        $fileName = $file->getClientOriginalName();
+        $file->move(public_path($folderName), $fileName);
+
+        return $folderName . '/' . $fileName;
     }
 }
